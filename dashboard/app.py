@@ -1,10 +1,3 @@
-"""
-app.py
-Dashboard do Grupo 9 - Categorização dos Municípios Turísticos 2019.
-
-Rodar com:
-    streamlit run dashboard/app.py
-"""
 import sys
 from pathlib import Path
 
@@ -105,7 +98,7 @@ with col_dir:
     top_a = (
         df_filtrado[df_filtrado["CLUSTER"] == "A"]
         .sort_values("ARRECADACAO", ascending=False)
-        .head(top_n)[["MUNICIPIO", "UF", "ARRECADACAO", "PIB_PER_CAPITA_R$", "TOTAL_VISITAS_ESTIMADAS"]]
+        .head(top_n)[["MUNICIPIO", "UF", "ARRECADACAO", "PIB_PER_CAPITA_R$", "TOTAL_VISITAS_ESTIMADAS", "POPULACAO_2019"]]
     )
     st.markdown(f"**Ranking de municípios com melhor desempenho**")
     st.dataframe(
@@ -114,6 +107,7 @@ with col_dir:
             "ARRECADACAO": "Arrecadação (R$)",
             "PIB_PER_CAPITA_R$": "PIB per capita (R$)",
             "TOTAL_VISITAS_ESTIMADAS": "Visitas estimadas",
+            "POPULACAO_2019": "População (2019)",
         }).style.format({
             "Arrecadação (R$)": "R$ {:,.0f}",
             "PIB per capita (R$)": "R$ {:,.0f}",
@@ -201,7 +195,7 @@ st.plotly_chart(fig_radar, use_container_width=True)
 st.success(
     "**Conclusão do grupo:** municípios de categoria A/B "
     "concentram muito mais empregos formais em hospedagem por estabelecimento, PIB per "
-    "capita mais alto e recebem ordens de magnitude mais visitantes que municípios D/E. "
+    "capita mais alto,maior população e recebem mais visitantes que municípios D/E. "
     "Isso sugere que **desempenho turístico está ligado a uma base econômica local mais "
     "forte e a uma estrutura de hospedagem mais profissionalizada** — não apenas à "
     "existência de um atrativo turístico."
