@@ -107,7 +107,7 @@ with col_dir:
         .sort_values("ARRECADACAO", ascending=False)
         .head(top_n)[["MUNICIPIO", "UF", "ARRECADACAO", "PIB_PER_CAPITA_R$", "TOTAL_VISITAS_ESTIMADAS"]]
     )
-    st.markdown(f"Ranking de municípios com melhor desempenho")
+    st.markdown(f"**Ranking de municípios com melhor desempenho**")
     st.dataframe(
         top_a.rename(columns={
             "MUNICIPIO": "Município", "UF": "UF",
@@ -139,7 +139,7 @@ agg = indicadores_por_cluster(df_filtrado)
 indicadores_plot = [
     ("pib_per_capita_medio", "PIB per capita (R$)"),
     ("empregos_por_estab_medio", "Empregos por estabelecimento"),
-    ("visitas_media", "Visitas estimadas"),
+    ("populacao_media", "População (2019)"),
     ("arrecadacao_media", "Arrecadação (R$)"),
 ]
 
@@ -158,8 +158,8 @@ st.info(
     f"municípios de categoria A têm, em média, PIB per capita "
     f"**{(agg.loc[agg.CLUSTER=='A','pib_per_capita_medio'].values[0] / agg.loc[agg.CLUSTER=='E','pib_per_capita_medio'].values[0]):.1f}x maior** "
     f"e recebem **{(agg.loc[agg.CLUSTER=='A','visitas_media'].values[0] / max(agg.loc[agg.CLUSTER=='D','visitas_media'].values[0], 1)):.0f}x mais visitas** "
-    f"que a categoria D e E. Municípios"
-    f"grandes e ricos possuem maior desempenho no turismo."
+    f"que a categoria D e E. O que leva a conclusão que municípios "
+    f"ricos e populosos possuem melhor desempenho no turismo."
 )
 
 st.markdown("---")
