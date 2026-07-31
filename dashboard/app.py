@@ -25,7 +25,7 @@ st.set_page_config(
     layout="wide",
 )
 
-st.title("🏖️ Desempenho Turístico dos Municípios Brasileiros — 2019")
+st.title("Desempenho Turístico dos Municípios Brasileiros - 2019")
 st.markdown(
     "Categorização de **2.694 municípios** do Mapa do Turismo Brasileiro "
     "(Ministério do Turismo), cruzada com PIB per capita, empregos e "
@@ -70,7 +70,7 @@ razao_pib = (pib_a / pib_e) if pib_e and pib_e > 0 else float("nan")
 
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("Municípios analisados", f"{total_municipios:,}".replace(",", "."))
-col2.metric("Em categoria A (melhor)", f"{(df_filtrado['CLUSTER']=='A').sum()}", f"{pct_a:.1f}% do total")
+col2.metric("Em categoria A", f"{(df_filtrado['CLUSTER']=='A').sum()}", f"{pct_a:.1f}% do total")
 col3.metric("PIB per capita médio — Categoria A", f"R$ {pib_a:,.0f}".replace(",", "."))
 col4.metric("PIB per capita médio — Categoria E", f"R$ {pib_e:,.0f}".replace(",", "."), delta=f"{razao_pib:.1f}x menor que A", delta_color="inverse")
 
@@ -90,25 +90,24 @@ with col_esq:
         contagem, x="CLUSTER", y="n_municipios",
         color="CLUSTER", color_discrete_map=CORES_CLUSTER,
         text="n_municipios",
-        title="Número de municípios por categoria (A = melhor, E = pior)",
-        labels={"n_municipios": "Nº de municípios", "CLUSTER": "Categoria"},
+        title="Número de municípios por categoria",
+        labels={"n_municipios": "Nº de municípios", "CLUSTER": "Categoria (CLUSTER)"},
     )
     fig_contagem.update_traces(textposition="outside")
     fig_contagem.update_layout(showlegend=False, yaxis_title="Nº de municípios")
     st.plotly_chart(fig_contagem, use_container_width=True)
     st.caption(
-        "A maioria dos municípios do Mapa do Turismo está nas categorias D e E — "
-        "bom desempenho turístico é exceção, não regra."
+        "A maioria dos municípios do Mapa do Turismo estão nas categorias D e E"
     )
 
 with col_dir:
-    top_n = st.slider("Mostrar top N municípios (categoria A)", 5, 30, 15)
+    top_n = st.slider("Mostrar municípios com melhor desempenho", 5, 15, 10)
     top_a = (
         df_filtrado[df_filtrado["CLUSTER"] == "A"]
         .sort_values("ARRECADACAO", ascending=False)
         .head(top_n)[["MUNICIPIO", "UF", "ARRECADACAO", "PIB_PER_CAPITA_R$", "TOTAL_VISITAS_ESTIMADAS"]]
     )
-    st.markdown(f"**Top {top_n} municípios da categoria A**, por arrecadação de impostos sobre hospedagem")
+    st.markdown(f"Ranking de municípios com melhor desempenho")
     st.dataframe(
         top_a.rename(columns={
             "MUNICIPIO": "Município", "UF": "UF",
