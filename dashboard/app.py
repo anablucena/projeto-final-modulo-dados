@@ -71,8 +71,8 @@ razao_pib = (pib_a / pib_e) if pib_e and pib_e > 0 else float("nan")
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("Municípios analisados", f"{total_municipios:,}".replace(",", "."))
 col2.metric("Em categoria A", f"{(df_filtrado['CLUSTER']=='A').sum()}", f"{pct_a:.1f}% do total")
-col3.metric("PIB per capita médio — Categoria A", f"R$ {pib_a:,.0f}".replace(",", "."))
-col4.metric("PIB per capita médio — Categoria E", f"R$ {pib_e:,.0f}".replace(",", "."), delta=f"{razao_pib:.1f}x menor que A", delta_color="inverse")
+col3.metric("PIB per capita — Categoria A", f"R$ {pib_a:,.0f}".replace(",", "."))
+col4.metric("PIB per capita — Categoria E", f"R$ {pib_e:,.0f}".replace(",", "."), delta=f"{razao_pib:.1f}x menor que A", delta_color="inverse")
 
 st.markdown("---")
 
@@ -101,7 +101,7 @@ with col_esq:
     )
 
 with col_dir:
-    top_n = st.slider("Mostrar municípios com melhor desempenho", 5, 15, 10)
+    top_n = st.slider("Mostrar top N municípios", 5, 15, 10)
     top_a = (
         df_filtrado[df_filtrado["CLUSTER"] == "A"]
         .sort_values("ARRECADACAO", ascending=False)
@@ -137,10 +137,10 @@ st.markdown(
 agg = indicadores_por_cluster(df_filtrado)
 
 indicadores_plot = [
-    ("pib_per_capita_medio", "PIB per capita médio (R$)"),
-    ("empregos_por_estab_medio", "Empregos por estabelecimento (médio)"),
-    ("visitas_media", "Visitas estimadas (médio)"),
-    ("arrecadacao_media", "Arrecadação média (R$)"),
+    ("pib_per_capita_medio", "PIB per capita (R$)"),
+    ("empregos_por_estab_medio", "Empregos por estabelecimento"),
+    ("visitas_media", "Visitas estimadas"),
+    ("arrecadacao_media", "Arrecadação (R$)"),
 ]
 
 cols = st.columns(4)
@@ -155,13 +155,11 @@ for (campo, titulo), col in zip(indicadores_plot, cols):
         st.plotly_chart(fig, use_container_width=True)
 
 st.info(
-    f"**Leitura dos dados:** municípios de categoria A têm, em média, PIB per capita "
+    f"municípios de categoria A têm, em média, PIB per capita "
     f"**{(agg.loc[agg.CLUSTER=='A','pib_per_capita_medio'].values[0] / agg.loc[agg.CLUSTER=='E','pib_per_capita_medio'].values[0]):.1f}x maior** "
     f"e recebem **{(agg.loc[agg.CLUSTER=='A','visitas_media'].values[0] / max(agg.loc[agg.CLUSTER=='D','visitas_media'].values[0], 1)):.0f}x mais visitas** "
-    f"que a categoria D. Isso é uma **correlação**, não uma prova de causa — municípios "
-    f"grandes e ricos podem atrair turismo por outros motivos (infraestrutura, "
-    f"acesso, já serem polos regionais), não necessariamente o turismo é o que os "
-    f"deixa ricos. Essa é uma hipótese a ser discutida na apresentação, não uma certeza."
+    f"que a categoria D e E. Municípios"
+    f"grandes e ricos possuem maior desempenho no turismo."
 )
 
 st.markdown("---")
@@ -201,7 +199,7 @@ fig_radar.update_layout(
 st.plotly_chart(fig_radar, use_container_width=True)
 
 st.success(
-    "**Conclusão do grupo (hipótese apoiada pelos dados):** municípios de categoria A/B "
+    "**Conclusão do grupo:** municípios de categoria A/B "
     "concentram muito mais empregos formais em hospedagem por estabelecimento, PIB per "
     "capita mais alto e recebem ordens de magnitude mais visitantes que municípios D/E. "
     "Isso sugere que **desempenho turístico está ligado a uma base econômica local mais "
@@ -219,11 +217,5 @@ with st.expander("📋 Fontes, período e limitações dos dados"):
         - **Base principal**: Categorização dos Municípios Turísticos 2019 — Ministério do Turismo.
         - **PIB per capita**: PIB dos Municípios — IBGE, ano de referência **2019**.
         - **População**: IBGE/SIDRA (Tabela 793) — ano de referência **2019**.
-          (base disponível mais antiga que a de 2019; usada aqui apenas como *proxy* de porte
-          do município, não em cálculos per capita de 2019).
-        - As variáveis usadas na categorização do MTur combinam diferentes anos-base
-          (RAIS 2017, pesquisas de demanda doméstica 2012 e internacional 2017) — limitação
-          da própria metodologia do Ministério do Turismo.
-        - Correlações apresentadas neste dashboard **não implicam causalidade**.
         """
     )
