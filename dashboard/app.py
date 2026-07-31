@@ -56,7 +56,7 @@ if df_filtrado.empty:
 st.sidebar.markdown("---")
 st.sidebar.caption(
     "Fontes: Categorização MTur 2019 · PIB dos Municípios (IBGE, 2019) · "
-    "População residente (IBGE/SIDRA, **2007** — ver limitação no rodapé)."
+    "População residente (IBGE/SIDRA, **2019** — ver limitação no rodapé)."
 )
 
 # ----------------------------------------------------------------------------

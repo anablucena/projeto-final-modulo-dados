@@ -44,7 +44,9 @@ def limpar_pib(ano: int = 2019) -> pd.DataFrame:
         "Código do Município": "COD_IBGE",
         "Nome do Município": "MUNICIPIO_PIB",
         "Sigla da Unidade da Federação": "UF_PIB",
-        "PIB_PER_CAPITA_R$": "PIB_PER_CAPITA_R$",
+        "Produto Interno Bruto per capita, \na preços correntes\n(R$ 1,00)": "PIB_PER_CAPITA_R$",
+        "Valor adicionado bruto dos Serviços,\na preços correntes \n- exceto Administração, defesa, educação e saúde públicas e seguridade social\n(R$ 1.000)": "VAB_SERVICOS_MIL_R$",
+        "Atividade com maior valor adicionado bruto": "ATIVIDADE_PRINCIPAL_PIB",
     }
     df = df[list(colunas_uteis.keys())].rename(columns=colunas_uteis)
     df["COD_IBGE"] = df["COD_IBGE"].astype(str).str.zfill(7)

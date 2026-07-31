@@ -33,7 +33,7 @@ def main():
     limpeza.limpar_populacao()
     print("   OK.")
 
-    print("\n>> Etapa 3/4: construindo o crosswalk nome+UF -> código IBGE...")
+    print("\n>> Etapa 3/4: construindo o crosswalk...")
     padronizacao = import_module("03_padronizacao_chave")
     padronizacao.anexar_cod_ibge_na_populacao()
     print("   OK.")

@@ -21,7 +21,7 @@ def montar_base_final() -> pd.DataFrame:
     pib = limpeza.limpar_pib()
     populacao = padronizacao.anexar_cod_ibge_na_populacao()
 
-    populacao_final = populacao[["COD_IBGE", "POPULACAO_2007"]].dropna(subset=["COD_IBGE"])
+    populacao_final = populacao[["COD_IBGE", "POPULACAO_2019"]].dropna(subset=["COD_IBGE"])
 
     # 1) base_principal + PIB (ambas já usam código IBGE nativo -> junção direta)
     df = base_principal.merge(pib, on="COD_IBGE", how="left", indicator="_match_pib")
