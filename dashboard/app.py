@@ -138,8 +138,8 @@ agg = indicadores_por_cluster(df_filtrado)
 
 indicadores_plot = [
     ("pib_per_capita_medio", "PIB per capita (R$)"),
-    ("empregos_por_estab_medio", "Empregos por estabelecimento"),
     ("populacao_media", "População (2019)"),
+    ("visitas_media", "Visitas estimadas"),
     ("arrecadacao_media", "Arrecadação (R$)"),
 ]
 
