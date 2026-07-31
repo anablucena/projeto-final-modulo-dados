@@ -21,6 +21,7 @@ def limpar_base_principal() -> pd.DataFrame:
     df["VISITAS_INTERNACIONAIS_EST"] = df["VISITAS_INTERNACIONAIS_EST"].apply(limpar_numero_brl)
     df["VISITAS_NACIONAIS_EST"] = df["VISITAS_NACIONAIS_EST"].apply(limpar_numero_brl)
     df["ARRECADACAO"] = df["ARRECADACAO"].apply(limpar_valor_monetario_brl)
+    df["QUANTIDADE_EMPREGOS"] = df["QUANTIDADE_EMPREGOS"].apply(limpar_numero_brl)
 
     df["COD_IBGE"] = df["COD_IBGE"].astype(str).str.zfill(7)
     df["MUNICIPIO"] = df["MUNICIPIO"].astype(str).str.strip()

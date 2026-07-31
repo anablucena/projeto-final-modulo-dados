@@ -5,19 +5,26 @@ PASTA_ORIGINAIS = Path(__file__).resolve().parent.parent / "bases_originais"
 
 
 def ler_base_principal() -> pd.DataFrame:
+   
     caminho = PASTA_ORIGINAIS / "base_principal.csv"
-    df = pd.read_csv(caminho, sep=None, engine="python", encoding="utf-8")
+  
+    df = pd.read_csv(
+        caminho, sep=None, engine="python", encoding="utf-8",
+        dtype={"QUANTIDADE_EMPREGOS": str},
+    )
     df.columns = [c.strip() for c in df.columns]  
     return df
 
 
 def ler_pib_municipios() -> pd.DataFrame:
+
     caminho = PASTA_ORIGINAIS / "base_complementar_01_pib.xlsx"
     df = pd.read_excel(caminho, sheet_name="PIB_dos_Municípios")
     return df
 
 
 def ler_populacao_residente() -> pd.DataFrame:
+
     caminho = PASTA_ORIGINAIS / "base_complementar_02_populacao.csv"
     df = pd.read_csv(
         caminho,
@@ -26,7 +33,7 @@ def ler_populacao_residente() -> pd.DataFrame:
         encoding="utf-8-sig",
         header=None,
         names=["localidade", "valor"],
-        skiprows=4,
+        skiprows=4,  
         quotechar='"',
     )
     return df

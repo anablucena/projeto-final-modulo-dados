@@ -1,35 +1,63 @@
-# **PROJETO FINAL MÓDULO DE DADOS**
+# Projeto Final — Módulo de Dados | Grupo 9
 
-### **OBJETIVO DO PROJETO:**
-Realizar uma investigação com dados, começando pela pergunta recebida e chegando a uma resposta
-apresentada para a turma. Para isso, o grupo deverá usar a base principal disponibilizada pelos
-professores, procurar duas bases complementares, organizar e tratar os dados, criar indicadores,
-montar um dashboard e apresentar os resultados e as conclusões.
-### 
+## Objetivo do projeto
 
-### PERGUNTA INVESTIGADA:
+Investigar **quais municípios brasileiros apresentaram o melhor desempenho no turismo em
+2019 e o que pode explicar esse resultado**.
 
-> Quais municípios apresentavam melhor desempenho no turismo
- em 2019 e o que pode explicar esse resultado?"
+## Pergunta investigada
 
-### **INTEGRANTES:**
-Ana Beatriz Vital 
-Tiago Closs
-Murilo Rodrigues
+> Quais municípios apresentavam melhor desempenho no turismo em 2019 e o que pode
+> explicar esse resultado?
 
-### **FERRAMENTAS USADAS:**
-- VS Code
-- Biblioteca Pandas
-- Python
-...
+## Integrantes do grupo
 
-### **FONTES:**
+- Ana Beatriz Vital 
+- André Tiago Closs 
+- Murilo Rodrigues Santos
 
-****Base complementar 01 (PIB):****
-[IBGE](https://www.ibge.gov.br/estatisticas/economicas/contas-nacionais/9088-produto-interno-bruto-dos-municipios.html?edicao=32575&t=resultados)
+## Ferramentas usadas
 
-**Base complementar 02 (População Residente):**
-[SIDRA IBGE](https://sidra.ibge.gov.br/tabela/6579)
+| Etapa | Ferramenta |
+|---|---|
+| ETL / tratamento de dados | Python 3.12, pandas, openpyxl/xlrd |
+| Dashboard | Streamlit, Plotly |
+| Ambiente de desenvolvimento | VSCode |
+| Controle de versão | Git / GitHub |
 
-### INSTRUÇÕES DE EXECUCUÇÃO:
+## Fontes de dados
+
+| Base | Fonte | Período |
+|---|---|---|
+| Categorização dos Municípios Turísticos 2019 (principal) | Ministério do Turismo | 2019 |
+| PIB dos Municípios | IBGE | 2019 |
+| População Residente (Tabela 793) | IBGE/SIDRA | 2019 |
+
+## Como executar o projeto
+
+### 1. Pré-requisitos
+
+- Python 3.12
+
+### 2. Configurar o ambiente
+```bash
+cd projeto_final_modulo_dados
+
+python -m venv venv
+
+source venv/Scripts/activate
+
+
+pip install -r requirements.txt
+```
+
+### 3. Rodar o ETL (gera a base tratada)
+```bash
+python etl/main.py
+```
+
+### 5. Rodar o dashboard
+```bash
+streamlit run dashboard/app.py
+```
 
