@@ -112,6 +112,7 @@ with col_dir:
             "Arrecadação (R$)": "R$ {:,.0f}",
             "PIB per capita (R$)": "R$ {:,.0f}",
             "Visitas estimadas": "{:,.0f}",
+            "População (2019)": "{:,.0f}",
         }),
         use_container_width=True,
         hide_index=True,
