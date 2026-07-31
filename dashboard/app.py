@@ -20,36 +20,12 @@ st.set_page_config(
 st.title("Desempenho Turístico dos Municípios Brasileiros - 2019")
 st.markdown(
     "Categorização de **2.694 municípios** do Mapa do Turismo Brasileiro "
-    "(Ministério do Turismo), cruzada com PIB per capita, empregos e "
+    "cruzada com PIB per capita, empregos e "
     "população para investigar o que diferencia os melhores dos piores "
     "desempenhos turísticos do país."
 )
 
 df = carregar_dados()
-
-# ----------------------------------------------------------------------------
-# Filtros (barra lateral)
-# ----------------------------------------------------------------------------
-st.sidebar.header("Filtros")
-
-ufs = sorted(df["UF"].dropna().unique())
-uf_sel = st.sidebar.multiselect("UF", ufs, default=ufs)
-
-clusters_sel = st.sidebar.multiselect(
-    "Categoria (CLUSTER)", ORDEM_CLUSTER, default=ORDEM_CLUSTER
-)
-
-df_filtrado = df[df["UF"].isin(uf_sel) & df["CLUSTER"].isin(clusters_sel)]
-
-if df_filtrado.empty:
-    st.warning("Nenhum município para os filtros selecionados. Ajuste os filtros na barra lateral.")
-    st.stop()
-
-st.sidebar.markdown("---")
-st.sidebar.caption(
-    "Fontes: Categorização MTur 2019 · PIB dos Municípios (IBGE, 2019) · "
-    "População residente (IBGE/SIDRA, **2007** — ver limitação no rodapé)."
-)
 
 # ----------------------------------------------------------------------------
 # KPIs principais
@@ -145,7 +121,7 @@ with col_dir:
     top_a = (
         df_filtrado[df_filtrado["CLUSTER"] == "A"]
         .sort_values("ARRECADACAO", ascending=False)
-        .head(top_n)[["MUNICIPIO", "UF", "ARRECADACAO", "PIB_PER_CAPITA_R$", "TOTAL_VISITAS_ESTIMADAS", "POPULACAO_2007"]]
+        .head(top_n)[["MUNICIPIO", "UF", "ARRECADACAO", "PIB_PER_CAPITA_R$", "TOTAL_VISITAS_ESTIMADAS", "POPULACAO_2019"]]
     )
     st.markdown("**Ranking de municípios com melhor desempenho**")
     st.dataframe(
@@ -154,12 +130,12 @@ with col_dir:
             "ARRECADACAO": "Arrecadação (R$)",
             "PIB_PER_CAPITA_R$": "PIB per capita (R$)",
             "TOTAL_VISITAS_ESTIMADAS": "Visitas estimadas",
-            "POPULACAO_2007": "População (2007)",
+            "POPULACAO_2019": "População (2019)",
         }).style.format({
             "Arrecadação (R$)": "R$ {:,.0f}",
             "PIB per capita (R$)": "R$ {:,.0f}",
             "Visitas estimadas": "{:,.0f}",
-            "População (2007)": "{:,.0f}",
+            "População (2019)": "{:,.0f}",
         }),
         use_container_width=True,
         hide_index=True,
@@ -180,7 +156,7 @@ agg = indicadores_por_cluster(df_filtrado)
 
 indicadores_plot = [
     ("pib_per_capita_medio", "PIB per capita (R$)"),
-    ("populacao_media", "População (2007)"),
+    ("populacao_media", "População (2019)"),
     ("visitas_media", "Visitas estimadas"),
     ("arrecadacao_media", "Arrecadação (R$)"),
 ]
