@@ -101,7 +101,7 @@ with col_esq:
     )
 
 with col_dir:
-    top_n = st.slider("Mostrar top N municípios", 5, 15, 10)
+    top_n = st.slider("Mostrar top N municípios", 3, 5, 10)
     top_a = (
         df_filtrado[df_filtrado["CLUSTER"] == "A"]
         .sort_values("ARRECADACAO", ascending=False)
