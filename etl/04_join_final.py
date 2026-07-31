@@ -45,13 +45,12 @@ def montar_base_final() -> pd.DataFrame:
 
     # reordena colunas para facilitar leitura
     colunas_ordem = [
-        "COD_IBGE", "MUNICIPIO", "UF", "MACRO", "REGIAO_TURISTICA", "CLUSTER",
+        "COD_IBGE", "MUNICIPIO", "UF", "REGIAO_TURISTICA", "CLUSTER",
         "QUANTIDADE_EMPREGOS", "QUANTIDADE_ESTABELECIMENTOS", "EMPREGOS_POR_ESTABELECIMENTO",
         "VISITAS_INTERNACIONAIS_EST", "VISITAS_NACIONAIS_EST", "TOTAL_VISITAS_ESTIMADAS",
         "ARRECADACAO",
-        "PIB_PER_CAPITA_R$", "VAB_SERVICOS_MIL_R$",
-        "ATIVIDADE_PRINCIPAL_PIB",
-        "POPULACAO_2007",
+        "PIB_PER_CAPITA_R$",
+        "POPULACAO_2019",
     ]
     df = df[colunas_ordem]
 

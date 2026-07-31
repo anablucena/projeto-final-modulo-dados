@@ -1,18 +1,3 @@
-"""
-02_limpeza.py
-Aplica a limpeza específica de cada base:
-- base_principal: converte colunas monetárias/numéricas do padrão BR para número.
-- PIB: filtra o ano de 2019 e seleciona colunas relevantes.
-- população: remove linhas de nota de rodapé/região/UF e mantém só municípios.
-
-IMPORTANTE - limitação conhecida:
-A base de população enviada (populacao_residente.csv) traz dados de **2007**,
-não de 2019. Isso será documentado como limitação no README/documentação do
-projeto. Ainda assim, ela é útil como referência de porte populacional dos
-municípios (proxy), mas indicadores per capita "oficiais" do projeto devem
-priorizar o PIB per capita 2019 (que já vem calculado pelo IBGE) em vez de
-combinar arrecadação/empregos 2019 com população 2007.
-"""
 import pandas as pd
 import sys
 from pathlib import Path
@@ -59,9 +44,7 @@ def limpar_pib(ano: int = 2019) -> pd.DataFrame:
         "Código do Município": "COD_IBGE",
         "Nome do Município": "MUNICIPIO_PIB",
         "Sigla da Unidade da Federação": "UF_PIB",
-        "Produto Interno Bruto per capita, \na preços correntes\n(R$ 1,00)": "PIB_PER_CAPITA_R$",
-        "Valor adicionado bruto dos Serviços,\na preços correntes \n- exceto Administração, defesa, educação e saúde públicas e seguridade social\n(R$ 1.000)": "VAB_SERVICOS_MIL_R$",
-        "Atividade com maior valor adicionado bruto": "ATIVIDADE_PRINCIPAL_PIB",
+        "PIB_PER_CAPITA_R$": "PIB_PER_CAPITA_R$",
     }
     df = df[list(colunas_uteis.keys())].rename(columns=colunas_uteis)
     df["COD_IBGE"] = df["COD_IBGE"].astype(str).str.zfill(7)
@@ -94,7 +77,7 @@ def limpar_populacao() -> pd.DataFrame:
         registros.append({
             "MUNICIPIO_POP": municipio,
             "UF_POP": uf,
-            "POPULACAO_2007": populacao,
+            "POPULACAO_2019": populacao,
             "CHAVE_NOME_UF": normalizar_texto(municipio) + "_" + uf,
         })
 

@@ -1,9 +1,3 @@
-"""
-01_leitura_bases.py
-Lê as três bases originais e faz uma checagem inicial de formato.
-Rode este script sozinho para conferir se os arquivos abrem corretamente
-antes de seguir para a limpeza.
-"""
 import pandas as pd
 from pathlib import Path
 
@@ -11,24 +5,19 @@ PASTA_ORIGINAIS = Path(__file__).resolve().parent.parent / "bases_originais"
 
 
 def ler_base_principal() -> pd.DataFrame:
-    """Base principal: categorização MTur 2019 (nível município)."""
     caminho = PASTA_ORIGINAIS / "base_principal.csv"
     df = pd.read_csv(caminho, sep=None, engine="python", encoding="utf-8")
-    df.columns = [c.strip() for c in df.columns]  # remove espaços nos nomes de coluna
+    df.columns = [c.strip() for c in df.columns]  
     return df
 
 
 def ler_pib_municipios() -> pd.DataFrame:
-    """Base complementar 1: PIB dos Municípios 2010-2019 (IBGE)."""
     caminho = PASTA_ORIGINAIS / "base_complementar_01_pib.xlsx"
     df = pd.read_excel(caminho, sheet_name="PIB_dos_Municípios")
     return df
 
 
 def ler_populacao_residente() -> pd.DataFrame:
-    """
-    Base complementar 2: População residente (IBGE/SIDRA - tabela 793).
-    """
     caminho = PASTA_ORIGINAIS / "base_complementar_02_populacao.csv"
     df = pd.read_csv(
         caminho,
