@@ -40,14 +40,14 @@ df = carregar_dados()
 # ----------------------------------------------------------------------------
 st.sidebar.header("Filtros")
 
-macros = sorted(df["MACRO"].dropna().unique())
-macro_sel = st.sidebar.multiselect("Macrorregião", macros, default=macros)
+ufs = sorted(df["UF"].dropna().unique())
+uf_sel = st.sidebar.multiselect("UF", ufs, default=ufs)
 
 clusters_sel = st.sidebar.multiselect(
     "Categoria (CLUSTER)", ORDEM_CLUSTER, default=ORDEM_CLUSTER
 )
 
-df_filtrado = df[df["MACRO"].isin(macro_sel) & df["CLUSTER"].isin(clusters_sel)]
+df_filtrado = df[df["UF"].isin(uf_sel) & df["CLUSTER"].isin(clusters_sel)]
 
 if df_filtrado.empty:
     st.warning("Nenhum município para os filtros selecionados. Ajuste os filtros na barra lateral.")
@@ -219,7 +219,7 @@ with st.expander("📋 Fontes, período e limitações dos dados"):
         """
         - **Base principal**: Categorização dos Municípios Turísticos 2019 — Ministério do Turismo.
         - **PIB per capita**: PIB dos Municípios — IBGE, ano de referência **2019**.
-        - **População**: IBGE/SIDRA (Tabela 793) — ano de referência **2007**
+        - **População**: IBGE/SIDRA (Tabela 793) — ano de referência **2019**.
           (base disponível mais antiga que a de 2019; usada aqui apenas como *proxy* de porte
           do município, não em cálculos per capita de 2019).
         - As variáveis usadas na categorização do MTur combinam diferentes anos-base
